@@ -174,7 +174,7 @@ CREATE TABLE `t_question`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键，自动递增',
   `title` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标题，唯一',
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '内容，包含题目详细说明，输入输出格式等信息',
-  `level` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '难度（easy/normal/hard等）',
+  `question_level` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '难度（easy/normal/hard等）',
   `tags` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '标签列表（json数组）',
   `answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '标准答案',
   `submit_num` int NOT NULL DEFAULT 0 COMMENT '提交数',
@@ -222,10 +222,10 @@ Judge Info 示例：
 DROP TABLE IF EXISTS `t_submit`;
 CREATE TABLE `t_submit`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键，自动递增',
-  `language` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '编程语言',
+  `submit_language` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '编程语言',
   `code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户代码',
-  `judgeInfo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '判题信息（json对象，存储判题机返回的信息、判题耗时、判题所占空间等）',
-  `status` int NOT NULL DEFAULT 0 COMMENT '判题状态（0 - 待判题、1 - 判题中、2 - 成功、3 - 失败）',
+  `judge_info` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '判题信息（json对象，存储判题机返回的信息、判题耗时、判题所占空间等）',
+  `submit_status` int NOT NULL DEFAULT 0 COMMENT '判题状态（0 - 待判题、1 - 判题中、2 - 成功、3 - 失败）',
   `question_id` bigint NOT NULL COMMENT '题目id',
   `user_id` bigint NOT NULL COMMENT '提交用户id',
   `is_deleted` tinyint NOT NULL DEFAULT 0 COMMENT '是否逻辑删除',

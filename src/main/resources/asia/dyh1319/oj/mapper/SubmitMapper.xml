@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="asia.dyh1319.oj.mapper.SubmitMapper">
+  <resultMap id="BaseResultMap" type="asia.dyh1319.oj.model.entity.Submit">
+    <!--@mbg.generated-->
+    <!--@Table t_submit-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="submit_language" jdbcType="VARCHAR" property="submitLanguage" />
+    <result column="code" jdbcType="LONGVARCHAR" property="code" />
+    <result column="judge_info" jdbcType="LONGVARCHAR" property="judgeInfo" />
+    <result column="submit_status" jdbcType="INTEGER" property="submitStatus" />
+    <result column="question_id" jdbcType="BIGINT" property="questionId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, submit_language, code, judge_info, submit_status, question_id, user_id, is_deleted, 
+    create_time, update_time
+  </sql>
+</mapper>

@@ -2,6 +2,7 @@ package asia.dyh1319.oj.model.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 
+import java.io.Serializable;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,8 +15,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "t_user")
-public class User {
+public class User implements Serializable {
+    
     private static final long serialVersionUID = 2728240965754933253L;
+    
     /**
      * 主键，自动递增
      */
