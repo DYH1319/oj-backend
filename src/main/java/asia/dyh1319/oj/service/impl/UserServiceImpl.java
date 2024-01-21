@@ -154,7 +154,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         javaMailSender.send(message);
         
         int expireTime = 300;
-        int intervalTime = 10;
+        int intervalTime = 60;
         
         // 设置验证码，有效期5分钟
         redisClient.set(emailSuffixWithExpireTime(email), code, expireTime);
@@ -273,34 +273,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     
     @Override
     public boolean userLogout(HttpServletRequest request) {
-        if (request.getSession().getAttribute(UserConstant.USER_LOGIN_STATE) == null) {
-            throw new BusinessException(StatusCode.OPERATION_ERROR, "用户未登录或已退出登录");
-        }
         request.getSession().removeAttribute(UserConstant.USER_LOGIN_STATE);
         return true;
     }
     
     @Override
-    public User userGetLogin(HttpServletRequest request) {
+    public LoginUserVO userGetLogin(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(UserConstant.USER_LOGIN_STATE);
-        if (user == null || user.getId() == null) {
-            throw new BusinessException(StatusCode.NOT_LOGIN_ERROR, "请先登录");
-        }
         User currentUser = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getId, user.getId()));
-        if (currentUser == null) {
-            throw new BusinessException(StatusCode.SYSTEM_ERROR);
-        }
-        return currentUser;
-    }
-    
-    @Override
-    public LoginUserVO getLoginUserVO(User user) {
-        if (user == null || user.getId() == null) {
+        if (currentUser == null || currentUser.getId() == null) {
             throw new BusinessException(StatusCode.PARAMS_ERROR);
         }
-        LoginUserVO loginUserVO = new LoginUserVO();
-        BeanUtils.copyProperties(user, loginUserVO);
-        return loginUserVO;
+        request.getSession().setAttribute(UserConstant.USER_LOGIN_STATE, currentUser);
+        return LoginUserVO.objToVo(currentUser);
     }
     
     /**

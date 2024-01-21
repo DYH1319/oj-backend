@@ -1,5 +1,6 @@
 package asia.dyh1319.oj.controller;
 
+import asia.dyh1319.oj.annotation.AuthCheck;
 import asia.dyh1319.oj.common.BaseResponse;
 import asia.dyh1319.oj.common.StatusCode;
 import asia.dyh1319.oj.exception.BusinessException;
@@ -7,7 +8,7 @@ import asia.dyh1319.oj.model.dto.user.UserLoginWithEmailRequest;
 import asia.dyh1319.oj.model.dto.user.UserLoginWithPasswordRequest;
 import asia.dyh1319.oj.model.dto.user.UserRegisterRequest;
 import asia.dyh1319.oj.model.dto.user.UserRequestEmailCodeResponse;
-import asia.dyh1319.oj.model.entity.User;
+import asia.dyh1319.oj.model.enums.UserRoleEnum;
 import asia.dyh1319.oj.model.vo.LoginUserVO;
 import asia.dyh1319.oj.service.UserService;
 import asia.dyh1319.oj.utils.ResponseUtils;
@@ -103,6 +104,7 @@ public class UserController {
      * 用户注销
      */
     @PostMapping("/logout")
+    @AuthCheck(mustRole = UserRoleEnum.BAN)
     public BaseResponse<Boolean> userLogout(HttpServletRequest request) {
         if (request == null) {
             throw new BusinessException(StatusCode.PARAMS_ERROR, "请求为空");
@@ -115,8 +117,12 @@ public class UserController {
      * 获取当前登录用户（脱敏）
      */
     @GetMapping("/get/login")
+    @AuthCheck(mustRole = UserRoleEnum.BAN)
     public BaseResponse<LoginUserVO> userGetLogin(HttpServletRequest request) {
-        User user = userService.userGetLogin(request);
-        return ResponseUtils.success(userService.getLoginUserVO(user));
+        if (request == null) {
+            throw new BusinessException(StatusCode.PARAMS_ERROR, "请求为空");
+        }
+        LoginUserVO res = userService.userGetLogin(request);
+        return ResponseUtils.success(res);
     }
 }

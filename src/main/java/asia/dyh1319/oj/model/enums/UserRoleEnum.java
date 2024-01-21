@@ -4,24 +4,30 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.Getter;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * 用户角色枚举
  */
+@Getter
 public enum UserRoleEnum {
     
-    BAN("被封号", "ban"),
-    USER("用户", "user"),
-    ADMIN("管理员", "admin");
+    NOT_LOGIN("未登录", "notLogin", 0),
+    BAN("被封号", "ban", 1),
+    USER("用户", "user", 2),
+    ADMIN("管理员", "admin", 3);
     
     private final String text;
     
     private final String value;
     
-    UserRoleEnum(String text, String value) {
+    private final int weight;
+    
+    UserRoleEnum(String text, String value, int weight) {
         this.text = text;
         this.value = value;
+        this.weight = weight;
     }
     
     /**
@@ -46,11 +52,14 @@ public enum UserRoleEnum {
         return null;
     }
     
-    public String getValue() {
-        return value;
-    }
-    
-    public String getText() {
-        return text;
+    /**
+     * 根据 value 获取权限权重
+     */
+    public static int getWeightByValue(String value) {
+        UserRoleEnum userRoleEnum = getEnumByValue(value);
+        if (userRoleEnum == null) {
+            return -1;
+        }
+        return userRoleEnum.getWeight();
     }
 }

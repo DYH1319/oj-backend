@@ -106,7 +106,7 @@ Judge Config 示例：
 ```json
 {
    "timeLimit": 1000, // 单位是MS
-   "memoryLimit": 512, // 单位是MB
+   "memoryLimit": 512, // 单位是KB
    "stackLimit": 50,
    "judgeType": "判题类型"
 }
@@ -204,12 +204,12 @@ Judge Info 示例：
 }
 ```
 判题信息枚举值：
-- Accepted 成功
+- Accepted 答案正确
 - Wrong Answer 答案错误
 - Compile Error 编译错误
 - Memory Limit Exceeded 内存超限
 - Time Limit Exceeded 时间超限
-- Presentation Error 展示错误
+- Presentation Error 格式错误（"Presentation Error"（PE）通常指的是你的程序虽然得出了正确的答案，但输出格式与题目要求的格式不完全一致。例如空格个数不一致、精度不一致等）
 - Output Limit Exceeded 输出超限
 - Waiting 等待中
 - Dangerous Operation 危险操作

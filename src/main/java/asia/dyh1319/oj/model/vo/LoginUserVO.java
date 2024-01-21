@@ -1,12 +1,14 @@
 package asia.dyh1319.oj.model.vo;
 
+import asia.dyh1319.oj.model.entity.User;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 已登录用户视图（脱敏）
+ * 已登录用户视图（脱敏，该视图用于显示用户自己的信息，只有自己才能看到）
  **/
 @Data
 public class LoginUserVO implements Serializable {
@@ -62,4 +64,22 @@ public class LoginUserVO implements Serializable {
      * 更新时间
      */
     private Date updateTime;
+    
+    public static LoginUserVO objToVo(User loginUser) {
+        if (loginUser == null) {
+            return null;
+        }
+        LoginUserVO loginUserVO = new LoginUserVO();
+        BeanUtils.copyProperties(loginUser, loginUserVO);
+        return loginUserVO;
+    }
+    
+    public static User voToObj(LoginUserVO loginUserVO) {
+        if (loginUserVO == null) {
+            return null;
+        }
+        User loginUser = new User();
+        BeanUtils.copyProperties(loginUserVO, loginUser);
+        return loginUser;
+    }
 }
