@@ -59,6 +59,10 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         JudgeConfig judgeConfig = questionAddRequest.getJudgeConfig();
         // 校验
         validQuestion(question, tags, judgeCases, judgeConfig);
+        // 标题唯一性校验
+        if (questionMapper.selectOne(new LambdaQueryWrapper<Question>().eq(Question::getTitle, question.getTitle())) != null) {
+            throw new BusinessException(StatusCode.PARAMS_ERROR, "题目标题已存在");
+        }
         if (tags != null) {
             question.setTags(GSON.toJson(tags));
         }
@@ -104,6 +108,10 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
             throw new BusinessException(StatusCode.NOT_FOUND_ERROR, "未找到需要更新的题目");
         }
         question.setId(id);
+        // 标题唯一性校验
+        if (questionMapper.selectOne(new LambdaQueryWrapper<Question>().eq(Question::getTitle, question.getTitle()).ne(Question::getId, id)) != null) {
+            throw new BusinessException(StatusCode.PARAMS_ERROR, "题目标题已存在");
+        }
         int count = questionMapper.updateById(question);
         if (count != 1) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "系统内部异常，更新题目失败");
@@ -169,7 +177,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         long current = questionQueryRequest.getCurrent();
         long size = questionQueryRequest.getPageSize();
         // 限制爬虫
-        ThrowUtils.throwIf(size > 10, StatusCode.OPERATION_ERROR, "禁止同时请求多页数据");
+        ThrowUtils.throwIf(size > 50, StatusCode.OPERATION_ERROR, "禁止同时请求多页数据");
         return questionMapper.selectPage(new Page<>(current, size), getLambdaQueryWrapper(questionQueryRequest));
     }
     
@@ -232,10 +240,6 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         }
         if (JudgeTypeEnum.getEnumByValue(judgeConfig.getJudgeType()) == null) {
             throw new BusinessException(StatusCode.PARAMS_ERROR, "题目判题配置中的判题类型不存在");
-        }
-        // 标题唯一性校验
-        if (questionMapper.selectOne(new LambdaQueryWrapper<Question>().eq(Question::getTitle, title)) != null) {
-            throw new BusinessException(StatusCode.PARAMS_ERROR, "题目标题已存在");
         }
     }
     
