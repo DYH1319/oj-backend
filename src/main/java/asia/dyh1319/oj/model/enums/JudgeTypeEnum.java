@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 @Getter
 public enum JudgeTypeEnum {
 
-    REGULAR("普通测评", "Regular"),
-    SPECIAL("特殊测评", "Special"),
-    INTERACTIVE("交互测评", "Interactive"),
+    REGULAR("普通评测", "Regular"),
+    SPECIAL("特殊评测", "Special"),
+    INTERACTIVE("交互评测", "Interactive"),
     SELF("在线自测", "Self"),
     SUBTASK("子任务分组评测", "Subtask"),
     FILE("文件IO", "File");

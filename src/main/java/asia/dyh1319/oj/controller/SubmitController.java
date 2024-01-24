@@ -26,6 +26,9 @@ public class SubmitController {
     @Resource
     private SubmitService submitService;
     
+    /**
+     * 新增提交
+     */
     @PostMapping("/add")
     @AuthCheck(mustRole = UserRoleEnum.USER)
     public BaseResponse<Long> addSubmit(@RequestBody SubmitAddRequest submitAddRequest, HttpServletRequest request) {

@@ -216,6 +216,11 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         if (judgeCases.size() > 1000) {
             throw new BusinessException(StatusCode.PARAMS_ERROR, "题目判题用例过多，请使用文件存储判题用例");
         }
+        judgeCases.forEach(judgeCase -> {
+            if (StringUtils.isAnyBlank(judgeCase.getInput(), judgeCase.getOutput())) {
+                throw new BusinessException(StatusCode.PARAMS_ERROR, "题目判题用例输入输出内容不能为空");
+            }
+        });
         if (ObjectUtils.isEmpty(judgeConfig)) {
             throw new BusinessException(StatusCode.PARAMS_ERROR, "题目判题配置不能为空");
         }
