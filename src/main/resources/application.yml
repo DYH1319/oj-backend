@@ -15,6 +15,9 @@ spring:
     # store-type: redis
     # 30 天过期
     timeout: 2592000
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/oj
@@ -76,3 +79,6 @@ cos:
     secretKey: xxx
     region: xxx
     bucket: xxx
+# 代码沙箱配置
+code-sandbox:
+  type: example

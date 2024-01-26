@@ -146,7 +146,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         long current = questionQueryRequest.getCurrent();
         long size = questionQueryRequest.getPageSize();
         // 限制爬虫
-        ThrowUtils.throwIf(size > 10, StatusCode.OPERATION_ERROR, "禁止同时请求多页数据");
+        ThrowUtils.throwIf(size > 30, StatusCode.OPERATION_ERROR, "禁止同时请求多页数据");
         Page<Question> questionPage = questionMapper.selectPage(new Page<>(current, size), getLambdaQueryWrapper(questionQueryRequest));
         // Page<Question> -> Page<QuestionVO>
         List<Question> questionList = questionPage.getRecords();

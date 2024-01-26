@@ -8,13 +8,11 @@ import asia.dyh1319.oj.model.dto.submit.SubmitAddRequest;
 import asia.dyh1319.oj.model.enums.UserRoleEnum;
 import asia.dyh1319.oj.service.SubmitService;
 import asia.dyh1319.oj.utils.ResponseUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * submit 控制器
@@ -37,5 +35,15 @@ public class SubmitController {
         }
         long res = submitService.addSubmit(submitAddRequest, request);
         return ResponseUtils.success(res, "提交成功");
+    }
+    
+    /**
+     * 获取所有的可用编程语言
+     */
+    @GetMapping("/fetch/languages")
+    @AuthCheck(mustRole = UserRoleEnum.USER)
+    public BaseResponse<List<List<String>>> fetchLanguages() {
+        List<List<String>> res = submitService.fetchLanguages();
+        return ResponseUtils.success(res, "获取所有的可用编程语言成功");
     }
 }

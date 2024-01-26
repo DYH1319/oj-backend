@@ -1,6 +1,9 @@
-package asia.dyh1319.oj.model.dto.submit;
+package asia.dyh1319.oj.judge.codesandbox.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -10,6 +13,9 @@ import java.io.Serializable;
  * @since 2024/1/20 18:01
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class JudgeInfo implements Serializable {
     
     private static final long serialVersionUID = -7149376623007815513L;

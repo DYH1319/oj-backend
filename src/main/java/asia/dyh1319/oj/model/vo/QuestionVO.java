@@ -3,6 +3,7 @@ package asia.dyh1319.oj.model.vo;
 import asia.dyh1319.oj.model.dto.question.JudgeConfig;
 import asia.dyh1319.oj.model.entity.Question;
 import cn.hutool.json.JSONUtil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
@@ -78,6 +79,7 @@ public class QuestionVO implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date createTime;
     
     /**
@@ -85,6 +87,9 @@ public class QuestionVO implements Serializable {
      */
     private Date updateTime;
     
+    /**
+     * userVO须查库设置
+     */
     public static QuestionVO objToVo(Question question) {
         if (question == null) {
             return null;

@@ -17,7 +17,7 @@ public class SubmitAddRequest implements Serializable {
     /**
      * 编程语言
      */
-    private String submitLanguage;
+    private String language;
     
     /**
      * 用户代码
