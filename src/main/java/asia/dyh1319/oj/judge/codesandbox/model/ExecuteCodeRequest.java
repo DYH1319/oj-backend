@@ -1,6 +1,5 @@
 package asia.dyh1319.oj.judge.codesandbox.model;
 
-import asia.dyh1319.oj.model.dto.question.JudgeConfig;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

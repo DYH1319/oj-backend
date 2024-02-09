@@ -5,9 +5,13 @@ import asia.dyh1319.oj.common.StatusCode;
 import asia.dyh1319.oj.constant.CommonConstant;
 import asia.dyh1319.oj.constant.UserConstant;
 import asia.dyh1319.oj.exception.BusinessException;
+import asia.dyh1319.oj.judge.codesandbox.model.JudgeConfig;
 import asia.dyh1319.oj.mapper.QuestionMapper;
 import asia.dyh1319.oj.mapper.UserMapper;
-import asia.dyh1319.oj.model.dto.question.*;
+import asia.dyh1319.oj.model.dto.question.JudgeCase;
+import asia.dyh1319.oj.model.dto.question.QuestionAddRequest;
+import asia.dyh1319.oj.model.dto.question.QuestionQueryRequest;
+import asia.dyh1319.oj.model.dto.question.QuestionUpdateRequest;
 import asia.dyh1319.oj.model.entity.Question;
 import asia.dyh1319.oj.model.entity.User;
 import asia.dyh1319.oj.model.enums.JudgeTypeEnum;
@@ -235,8 +239,14 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         if (judgeConfig.getTimeLimit() == null) {
             throw new BusinessException(StatusCode.PARAMS_ERROR, "题目判题配置中的时间限制不能为空");
         }
+        if (judgeConfig.getTimeLimit() <= 0) {
+            throw new BusinessException(StatusCode.PARAMS_ERROR, "题目判题配置中的时间限制不能小于等于0");
+        }
         if (judgeConfig.getMemoryLimit() == null) {
             throw new BusinessException(StatusCode.PARAMS_ERROR, "题目判题配置中的内存限制不能为空");
+        }
+        if (judgeConfig.getMemoryLimit() <= 0) {
+            throw new BusinessException(StatusCode.PARAMS_ERROR, "题目判题配置中的内存限制不能小于等于0");
         }
         if (JudgeTypeEnum.getEnumByValue(judgeConfig.getJudgeType()) == null) {
             throw new BusinessException(StatusCode.PARAMS_ERROR, "题目判题配置中的判题类型不存在");

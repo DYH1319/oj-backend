@@ -1,4 +1,4 @@
-package asia.dyh1319.oj.model.dto.question;
+package asia.dyh1319.oj.judge.codesandbox.model;
 
 import lombok.Data;
 

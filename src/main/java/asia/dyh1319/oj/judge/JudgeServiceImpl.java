@@ -7,12 +7,12 @@ import asia.dyh1319.oj.judge.codesandbox.CodeSandboxFactory;
 import asia.dyh1319.oj.judge.codesandbox.CodeSandboxProxy;
 import asia.dyh1319.oj.judge.codesandbox.model.ExecuteCodeRequest;
 import asia.dyh1319.oj.judge.codesandbox.model.ExecuteCodeResponse;
+import asia.dyh1319.oj.judge.codesandbox.model.JudgeConfig;
 import asia.dyh1319.oj.judge.codesandbox.model.JudgeInfo;
 import asia.dyh1319.oj.judge.strategy.JudgeContext;
 import asia.dyh1319.oj.mapper.QuestionMapper;
 import asia.dyh1319.oj.mapper.SubmitMapper;
 import asia.dyh1319.oj.model.dto.question.JudgeCase;
-import asia.dyh1319.oj.model.dto.question.JudgeConfig;
 import asia.dyh1319.oj.model.entity.Question;
 import asia.dyh1319.oj.model.entity.Submit;
 import asia.dyh1319.oj.model.enums.JudgeInfoMessageEnum;
@@ -112,6 +112,10 @@ public class JudgeServiceImpl implements JudgeService {
         // 6. 修改数据库中的判题结果
         if (submitMapper.updateById(submitUpdate) != 1) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "无法将判题结果更新至数据库");
+        }
+        // 7. 若沙箱执行失败（返回code不为0），抛出自定义异常
+        if (executeCodeResponse.getStatus() != 0) {
+            throw new BusinessException(StatusCode.SYSTEM_ERROR, executeCodeResponse.getMessage());
         }
     }
 }

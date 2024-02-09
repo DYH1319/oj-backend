@@ -2,6 +2,7 @@ package asia.dyh1319.oj.judge;
 
 import asia.dyh1319.oj.judge.strategy.JudgeContext;
 import asia.dyh1319.oj.judge.strategy.JudgeStrategy;
+import asia.dyh1319.oj.judge.strategy.impl.CppJudgeStrategy;
 import asia.dyh1319.oj.judge.strategy.impl.DefaultJudgeStrategy;
 import asia.dyh1319.oj.judge.strategy.impl.HtmlJudgeStrategy;
 import asia.dyh1319.oj.model.enums.JudgeInfoMessageEnum;
@@ -20,8 +21,13 @@ public class JudgeManager {
     public JudgeInfoMessageEnum doJudge(JudgeContext judgeContext) {
         SubmitLanguageEnum language = judgeContext.getLanguage();
         JudgeStrategy judgeStrategy = new DefaultJudgeStrategy();
-        if (SubmitLanguageEnum.HTML.equals(language)) {
-            judgeStrategy = new HtmlJudgeStrategy();
+        switch (language) {
+            case HTML:
+                judgeStrategy = new HtmlJudgeStrategy();
+                break;
+            case CPP:
+                judgeStrategy = new CppJudgeStrategy();
+                break;
         }
         return judgeStrategy.doJudge(judgeContext);
     }

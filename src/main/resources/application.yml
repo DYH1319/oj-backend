@@ -81,4 +81,4 @@ cos:
     bucket: xxx
 # 代码沙箱配置
 code-sandbox:
-  type: example
+  type: remote

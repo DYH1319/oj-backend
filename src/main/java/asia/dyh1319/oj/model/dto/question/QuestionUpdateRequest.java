@@ -1,5 +1,6 @@
 package asia.dyh1319.oj.model.dto.question;
 
+import asia.dyh1319.oj.judge.codesandbox.model.JudgeConfig;
 import lombok.Data;
 
 import java.io.Serializable;

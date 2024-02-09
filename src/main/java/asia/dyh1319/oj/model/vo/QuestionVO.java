@@ -1,6 +1,6 @@
 package asia.dyh1319.oj.model.vo;
 
-import asia.dyh1319.oj.model.dto.question.JudgeConfig;
+import asia.dyh1319.oj.judge.codesandbox.model.JudgeConfig;
 import asia.dyh1319.oj.model.entity.Question;
 import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
